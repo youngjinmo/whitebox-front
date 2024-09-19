@@ -1,4 +1,4 @@
-<!-- src/components/LoginForm.vue -->
+<!-- src/components/Login.vue -->
 <template>
   <div class="login-form">
     <h2>로그인</h2>
@@ -11,7 +11,7 @@
         <input type="password" v-model="password" id="password" placeholder="비밀번호를 입력하세요" required />
       </div>
 
-      <button type="submit">Login</button>
+      <button @click="submitLogin">Login</button>
     </form>
   </div>
 </template>
@@ -19,22 +19,24 @@
 <script>
 import axios from 'axios';
 import router from '@/routes';
+import API_URL from '@/constants';
+import LOGIN_SESSION_KEY from '@/constants';
 
 export default {
   name: 'LoginForm',
   data() {
     return {
-      email: '',
+      username: '',
       password: ''
     };
   },
   methods: {
-    submitForm() {
-      axios.post(`http://localhost:8080/api/user/login`, {
+    submitLogin() {
+      axios.post(`${API_URL}/user/login`, {
         username: this.username, password: this.password
       })
-          .then(() => {
-            console.debug('login success');
+          .then((response) => {
+            localStorage.setItem(LOGIN_SESSION_KEY, response.data.token);
             alert("환영합니다!");
             return router.push('/');
           })
