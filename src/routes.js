@@ -1,8 +1,9 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import WelcomeHome from './components/Home.vue';
-import LoginForm from './components/LoginForm.vue';
-import SignUpForm from './components/SignupForm.vue';
+import LoginForm from './components/Login.vue';
+import SignUpForm from './components/Signup.vue';
+import LOGIN_SESSION_KEY from './constants';
 
 // 라우트 설정
 const routes = [
@@ -19,12 +20,14 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: LoginForm
+        component: LoginForm,
+        meta: { showAvailableToGuest: true }
     },
     {
         path: '/signup',
         name: 'SignUp',
-        component: SignUpForm
+        component: SignUpForm,
+        meta: { showAvailableToGuest: true }
     }
 ];
 
@@ -33,5 +36,14 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    const isLoggined = !!localStorage.getItem(LOGIN_SESSION_KEY);
+    if (['/login', '/signup'].includes(to.path) && isLoggined) {
+        next('/');
+    } else {
+        next();
+    }
+})
 
 export default router;

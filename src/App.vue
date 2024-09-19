@@ -4,17 +4,23 @@
   <div id = "app">
     <nav>
       <router-link to="/">Home</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/signup">SignUp</router-link>
+      <router-link v-if="!isLoggined" to="/login">Login</router-link>
+      <router-link v-if="!isLoggined" to="/signup">SignUp</router-link>
     </nav>
     <router-view />
   </div>
 </template>
 
 <script>
+import LOGIN_SESSION_KEY from './constants';
 
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    isLoggined() {
+      return !!localStorage.getItem(LOGIN_SESSION_KEY);
+    }
+  },
 };
 </script>
 
