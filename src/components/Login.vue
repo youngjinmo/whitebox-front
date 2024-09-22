@@ -19,8 +19,7 @@
 <script>
 import axios from 'axios';
 import router from '@/routes';
-import API_URL from '@/constants';
-import LOGIN_SESSION_KEY from '@/constants';
+import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
 
 export default {
   name: 'LoginForm',
@@ -36,9 +35,13 @@ export default {
         username: this.username, password: this.password
       })
           .then((response) => {
-            localStorage.setItem(LOGIN_SESSION_KEY, response.data.token);
-            alert("환영합니다!");
-            return router.push('/');
+            localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(response.data));
+            if (this.$route.name === '/' || this.$route.name === '') {
+              window.location.reload();
+            } else {
+              router.push('/');
+              window.location.reload();
+            }
           })
           .catch((err) => {
             if (err.response.status === 401) {
@@ -86,6 +89,6 @@ button {
 }
 
 button:hover {
-  background-color: #36a673;
+  BACKGROUND-COLOR: #36A673;
 }
-</style>
+</STYLE>

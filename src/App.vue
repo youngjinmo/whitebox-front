@@ -6,21 +6,34 @@
       <router-link to="/">Home</router-link>
       <router-link v-if="!isLoggined" to="/login">Login</router-link>
       <router-link v-if="!isLoggined" to="/signup">SignUp</router-link>
+      <a v-if="isLoggined" href="#" @click.prevent="logout">Logout</a>
     </nav>
     <router-view />
   </div>
 </template>
 
 <script>
-import LOGIN_SESSION_KEY from './constants';
+import { LOGIN_SESSION_KEY } from '@/constants';
+import router from "@/routes";
 
 export default {
   name: 'App',
-  computed: {
-    isLoggined() {
-      return !!localStorage.getItem(LOGIN_SESSION_KEY);
-    }
+  data() {
+    return {
+      isLoggined: !!localStorage.getItem(LOGIN_SESSION_KEY),
+    };
   },
+  methods: {
+    logout() {
+     localStorage.removeItem(LOGIN_SESSION_KEY);
+     if (this.$route.name === '/' || this.$route.name === '') {
+       window.location.reload();
+     } else {
+       router.push('/');
+       window.location.reload();
+     }
+    }
+  }
 };
 </script>
 
