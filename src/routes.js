@@ -1,9 +1,9 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import WelcomeHome from './components/Home.vue';
-import LoginForm from './components/Login.vue';
-import SignUpForm from './components/Signup.vue';
-import LOGIN_SESSION_KEY from './constants';
+import WelcomeHome from '@/components/Home.vue';
+import LoginForm from '@/components/Login.vue';
+import SignUpForm from '@/components/Signup.vue';
+import { LOGIN_SESSION_KEY } from '@/constants';
 
 // 라우트 설정
 const routes = [
@@ -14,6 +14,11 @@ const routes = [
     },
     {
         path: '/index',
+        name: 'WelcomeHome',
+        component: WelcomeHome
+    },
+    {
+        path: '/home',
         name: 'WelcomeHome',
         component: WelcomeHome
     },

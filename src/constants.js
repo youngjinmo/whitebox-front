@@ -1,5 +1,2 @@
-export default {
-    API_URL: 'http://localhost:8080/api',
-    LOGIN_SESSION_KEY: 'LOGIN',
-}
-
+export const API_URL = 'http://localhost:8080/api';
+export const LOGIN_SESSION_KEY = 'LOGIN';

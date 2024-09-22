@@ -22,7 +22,7 @@
 <script>
 import axios from 'axios';
 import router from '@/routes';
-import API_URL from "@/constants";
+import { API_URL } from "@/constants";
 
 export default {
   name: 'SignupForm',
