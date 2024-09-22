@@ -135,6 +135,7 @@ input {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  box-sizing: border-box;
 }
 
 button {
@@ -145,6 +146,7 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 #username-form {
