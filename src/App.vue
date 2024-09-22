@@ -10,11 +10,13 @@
     </nav>
     <router-view />
   </div>
+  <Footer />
 </template>
 
 <script>
 import { LOGIN_SESSION_KEY } from '@/constants';
 import router from "@/routes";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: 'App',
@@ -22,6 +24,9 @@ export default {
     return {
       isLoggined: !!localStorage.getItem(LOGIN_SESSION_KEY),
     };
+  },
+  components: {
+    Footer,
   },
   methods: {
     logout() {
