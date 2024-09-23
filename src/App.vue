@@ -8,6 +8,7 @@
       <router-link v-if="!isLoggined" to="/signup">SignUp</router-link>
       <a v-if="isLoggined" href="#" @click.prevent="logout">Logout</a>
     </nav>
+    <WelcomeHome />
     <router-view />
   </div>
   <Footer />
@@ -17,6 +18,7 @@
 import { LOGIN_SESSION_KEY } from '@/constants';
 import router from "@/routes";
 import Footer from "@/components/Footer.vue";
+import WelcomeHome from "@/components/Home.vue";
 
 export default {
   name: 'App',
@@ -26,6 +28,7 @@ export default {
     };
   },
   components: {
+    WelcomeHome,
     Footer,
   },
   methods: {
