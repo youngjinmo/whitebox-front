@@ -2,7 +2,7 @@
 <template>
   <div class="login-form">
     <h2>로그인</h2>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitLogin">
       <div>
         <input type="email" v-model="username" id="username" placeholder="이메일을 입력하세요" required />
       </div>
@@ -13,6 +13,12 @@
 
       <button @click="submitLogin">Login</button>
     </form>
+    <ModalComponent
+        :is-visible="modalVisible"
+        :title="modalTitle"
+        :message="modalMessage"
+        @close="modalVisible = false"
+    />
   </div>
 </template>
 
@@ -20,13 +26,19 @@
 import axios from 'axios';
 import router from '@/routes';
 import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
+import ModalComponent from "@/components/Modal.vue";
 
 export default {
   name: 'LoginForm',
+  components: {ModalComponent},
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      // modal
+      modalVisible: false,
+      modalTitle: "",
+      modalMessage: "",
     };
   },
   methods: {
@@ -45,13 +57,23 @@ export default {
           })
           .catch((err) => {
             if (err.response.status === 401) {
-              alert("이메일 또는 비밀번호가 정확하지 않습니다.")
-              return;
+             if (err.response?.data?.message === "INVALID_USERNAME") {
+               this.showModal("로그인 오류", "이메일이 올바르지 않습니다.");
+               return;
+             } else if (err.response?.data?.message === "INVALID_PASSWORD") {
+               this.showModal("로그인 오류", "비밀번호가 올바르지 않습니다.");
+               return;
+             }
             }
             console.error('login failed', err);
-            alert("로그인에 실패하였습니다.")
+            this.showModal("로그인 오류", "로그인에 실패하였습니다.")
           });
-    }
+    },
+    showModal(title, message) {
+      this.modalTitle = title;
+      this.modalMessage = message;
+      this.modalVisible = true;
+    },
   }
 };
 </script>
