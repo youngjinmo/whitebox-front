@@ -2,7 +2,7 @@
   <div v-if="isVisible" class="modal-overlay">
     <div class="modal-content">
       <h3>{{ title }}</h3>
-      <p>{{ message }}</p>
+      <p v-html="message"></p>
       <button @click="closeModal">Close</button>
     </div>
   </div>

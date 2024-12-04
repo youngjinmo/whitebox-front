@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import { LOGIN_SESSION_KEY } from '@/constants';
+import {API_URL, LOGIN_SESSION_KEY} from '@/constants';
 import router from "@/routes";
 import Footer from "@/components/Footer.vue";
 import WelcomeHome from "@/components/Home.vue";
+import axios from "axios";
 
 export default {
   name: 'App',
@@ -33,13 +34,21 @@ export default {
   },
   methods: {
     logout() {
-     localStorage.removeItem(LOGIN_SESSION_KEY);
-     if (this.$route.name === '/' || this.$route.name === '') {
-       window.location.reload();
-     } else {
-       router.push('/');
-       window.location.reload();
-     }
+      localStorage.removeItem(LOGIN_SESSION_KEY);
+      if (['', '/', '/home'].includes(this.$route.name)) {
+        window.location.reload();
+      } else {
+        router.push('/');
+        window.location.reload();
+      }
+
+      axios.delete(`${API_URL}/user/logout`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(LOGIN_SESSION_KEY)}`,
+        }
+      }).catch((error) => {
+        console.error("failed to logout, error={}", error);
+      })
     }
   }
 };
