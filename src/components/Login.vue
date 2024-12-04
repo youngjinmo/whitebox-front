@@ -12,6 +12,7 @@
       </div>
 
       <button @click="submitLogin">Login</button>
+      <p><a href="/find-password">비밀번호 초기화</a></p>
     </form>
     <ModalComponent
         :is-visible="modalVisible"
@@ -48,7 +49,7 @@ export default {
       })
           .then((response) => {
             localStorage.setItem(LOGIN_SESSION_KEY, JSON.stringify(response.data));
-            if (this.$route.name === '/' || this.$route.name === '') {
+            if (['', '/', '/home'].includes(this.$route.name)) {
               window.location.reload();
             } else {
               router.push('/');
@@ -56,11 +57,11 @@ export default {
             }
           })
           .catch((err) => {
-            if (err.response.status === 401) {
-             if (err.response?.data?.message === "INVALID_USERNAME") {
+            if (err.response?.status === 401) {
+             if (err.response?.data?.message === "INVALID USERNAME") {
                this.showModal("로그인 오류", "이메일이 올바르지 않습니다.");
                return;
-             } else if (err.response?.data?.message === "INVALID_PASSWORD") {
+             } else if (err.response?.data?.message === "INVALID PASSWORD") {
                this.showModal("로그인 오류", "비밀번호가 올바르지 않습니다.");
                return;
              }

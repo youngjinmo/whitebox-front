@@ -1,9 +1,11 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
+import { LOGIN_SESSION_KEY } from '@/constants';
 import WelcomeHome from '@/components/Home.vue';
 import LoginForm from '@/components/Login.vue';
 import SignUpForm from '@/components/Signup.vue';
-import { LOGIN_SESSION_KEY } from '@/constants';
+import ResetPassword from '@/components/ResetPassword.vue';
+import FindPassword from '@/components/FindPassword.vue';
 
 // 라우트 설정
 const routes = [
@@ -18,11 +20,6 @@ const routes = [
         component: WelcomeHome
     },
     {
-        path: '/home',
-        name: 'WelcomeHome',
-        component: WelcomeHome
-    },
-    {
         path: '/login',
         name: 'Login',
         component: LoginForm,
@@ -32,6 +29,18 @@ const routes = [
         path: '/signup',
         name: 'SignUp',
         component: SignUpForm,
+        meta: { showAvailableToGuest: true }
+    },
+    {
+        path: '/find-password',
+        name: 'FindPassword',
+        component: FindPassword,
+        meta: { showAvailableToGuest: true }
+    },
+    {
+        path: '/reset-password',
+        name: 'ResetPassword',
+        component: ResetPassword,
         meta: { showAvailableToGuest: true }
     }
 ];

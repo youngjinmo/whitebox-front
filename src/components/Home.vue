@@ -1,6 +1,6 @@
 <template>
   <div class="create-short-url-form">
-    <form @submit.prevent="submitCreateUrl">
+    <form @submit.prevent="createShortenUrl">
       <button @click="createShortenUrl">숏 URL 생성하기</button>
       <div>
         <input type="url" v-model="targetUrl" placeholder="줄이고 싶은 url을 입력하세요" required>
