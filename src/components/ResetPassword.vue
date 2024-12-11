@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { API_URL } from '@/constants';
 import ModalComponent from '@/components/Modal.vue';
 import router from '@/routes';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'ResetPassword',
@@ -53,7 +53,7 @@ export default {
       },
       async verifyResetLink(username, verificationCode) {
          try {
-            const response = await axios.patch(
+            const response = await requestApi.patch(
                `${API_URL}/user/reset-password?username=${username}&verificationCode=${verificationCode}`,
             );
             if (response.status === 200) {
