@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import {API_URL, LOGIN_SESSION_KEY} from '@/constants';
+import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
 import router from "@/routes";
 import Footer from "@/components/Footer.vue";
 import WelcomeHome from "@/components/Home.vue";
