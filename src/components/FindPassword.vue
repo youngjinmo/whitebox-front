@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { API_URL, EMAIL_PATTERN } from '@/constants';
 import ModalComponent from '@/components/Modal.vue';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'FindPassword',
@@ -43,8 +43,8 @@ export default {
             return;
          }
 
-         axios
-            .post(`${API_URL}/user/find-password`, { username: this.username })
+         requestApi
+            .post(`${API_URL}/user/find-password`, this.username)
             .then((response) => {
                this.showModal('성공', '비밀번호 초기화 링크를 이메일로 전송하였습니다.');
                if (response.status !== 200) {
@@ -52,7 +52,7 @@ export default {
                }
             })
             .catch((error) => {
-               if (error.response?.status === 401) {
+               if ([401, 404].includes(error.response?.status)) {
                   this.showModal('인증 실패', '등록된 이메일이 아닙니다.');
                } else if (error.response?.status === 403) {
                   this.showModal(

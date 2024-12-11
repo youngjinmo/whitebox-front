@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
 import router from '@/routes';
+import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
 import Footer from '@/components/Footer.vue';
 import WelcomeHome from '@/components/Home.vue';
-import axios from 'axios';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'App',
@@ -42,7 +42,7 @@ export default {
             window.location.reload();
          }
 
-         axios
+         requestApi
             .delete(`${API_URL}/user/logout`, {
                headers: {
                   Authorization: `Bearer ${localStorage.getItem(LOGIN_SESSION_KEY)}`,

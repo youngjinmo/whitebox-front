@@ -32,10 +32,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import router from '@/routes';
 import { API_URL, EMAIL_PATTERN } from '@/constants';
 import ModalComponent from '@/components/Modal.vue';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'SignupForm',
@@ -73,8 +73,8 @@ export default {
          }
       },
       async verifyEmailAuth() {
-         await axios
-            .post(`${API_URL}/user/verify/email?verificationCode=${this.secretCode}`, { recipient: this.username })
+         await requestApi
+            .post(`${API_URL}/user/verify/email?verificationCode=${this.secretCode}&recipient=${this.username}`)
             .then((response) => {
                if (response.status === 200 && response.data === 'verified') {
                   this.isVerifiedEmail = true;
@@ -93,8 +93,8 @@ export default {
             this.showModal('이메일 인증 오류', '올바른 형식의 이메일을 입력해주세요.');
          }
 
-         await axios
-            .post(`${API_URL}/user/email-verification-code`, { recipient: this.username })
+         await requestApi
+            .post(`${API_URL}/user/email-verification-code`, this.username)
             .then(() => {
                this.isCodeSent = true;
                this.showModal(null, '인증코드를 발송하였습니다.');
@@ -116,7 +116,7 @@ export default {
          if (!this.isValidPassword()) {
             return;
          }
-         await axios
+         await requestApi
             .post(`${API_URL}/user/create`, {
                username: this.username,
                password: this.password,

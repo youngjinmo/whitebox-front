@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import router from '@/routes';
 import { API_URL, LOGIN_SESSION_KEY } from '@/constants';
 import ModalComponent from '@/components/Modal.vue';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'LoginForm',
@@ -44,7 +44,7 @@ export default {
    },
    methods: {
       submitLogin() {
-         axios
+         requestApi
             .post(`${API_URL}/user/login`, {
                username: this.username,
                password: this.password,

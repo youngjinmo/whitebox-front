@@ -10,8 +10,8 @@
    </div>
 </template>
 <script>
-import axios from 'axios';
 import { API_URL, URL_PATTERN } from '@/constants';
+import { requestApi } from '@/utils/axios';
 
 export default {
    name: 'MainHome',
@@ -31,7 +31,7 @@ export default {
             alert('url 형식을 확인해주세요');
             return;
          }
-         axios
+         requestApi
             .post(`${API_URL}/link/create`, {
                redirectionUrl: this.targetUrl,
                userId: 153, // GUEST ID
