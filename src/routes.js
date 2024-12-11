@@ -9,55 +9,55 @@ import FindPassword from '@/components/FindPassword.vue';
 
 // 라우트 설정
 const routes = [
-    {
-        path: '/',
-        name: 'WelcomeHome',
-        component: WelcomeHome
-    },
-    {
-        path: '/index',
-        name: 'WelcomeHome',
-        component: WelcomeHome
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginForm,
-        meta: { showAvailableToGuest: true }
-    },
-    {
-        path: '/signup',
-        name: 'SignUp',
-        component: SignUpForm,
-        meta: { showAvailableToGuest: true }
-    },
-    {
-        path: '/find-password',
-        name: 'FindPassword',
-        component: FindPassword,
-        meta: { showAvailableToGuest: true }
-    },
-    {
-        path: '/reset-password',
-        name: 'ResetPassword',
-        component: ResetPassword,
-        meta: { showAvailableToGuest: true }
-    }
+   {
+      path: '/',
+      name: 'WelcomeHome',
+      component: WelcomeHome,
+   },
+   {
+      path: '/index',
+      name: 'WelcomeHome',
+      component: WelcomeHome,
+   },
+   {
+      path: '/login',
+      name: 'Login',
+      component: LoginForm,
+      meta: { showAvailableToGuest: true },
+   },
+   {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUpForm,
+      meta: { showAvailableToGuest: true },
+   },
+   {
+      path: '/find-password',
+      name: 'FindPassword',
+      component: FindPassword,
+      meta: { showAvailableToGuest: true },
+   },
+   {
+      path: '/reset-password',
+      name: 'ResetPassword',
+      component: ResetPassword,
+      meta: { showAvailableToGuest: true },
+   },
 ];
 
 // 라우터 생성
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
+   history: createWebHistory(process.env.BASE_URL),
+   routes,
 });
 
 router.beforeEach((to, from, next) => {
-    const isLoggined = !!localStorage.getItem(LOGIN_SESSION_KEY);
-    if (['/login', '/signup'].includes(to.path) && isLoggined) {
-        next('/');
-    } else {
-        next();
-    }
-})
+   const isLoggined = !!localStorage.getItem(LOGIN_SESSION_KEY);
+   if (['/login', '/signup'].includes(to.path) && isLoggined) {
+      next('/');
+   } else {
+      next();
+   }
+});
 
 export default router;
